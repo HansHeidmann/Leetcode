@@ -5,11 +5,10 @@ using namespace std;
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
-        if (nums.empty()) return 0; // Handle empty array edge case
-        int p = 1;  // extra pointer
+        if (nums.empty()) return 0; 
+        int p = 1; 
         for (int i = 1; i < nums.size(); i++) {
             if (nums[i] != nums[i - 1]) {
-                // unique element found
                 nums[p] = nums[i];
                 p++;
             }
