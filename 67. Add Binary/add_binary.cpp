@@ -1,4 +1,4 @@
-#include <iostream>
+#include <string>
 using namespace std;
 
 class Solution {
@@ -15,29 +15,54 @@ public:
             longerString = a;
         }
 
-        bool carry = false;
+        int carry = 0;
         int counter = 0;
         string output = "";
 
         for (int i=0; i<longerString.length(); i++) {
             string c;
             if (counter < shorterString.length()) {  
-                int total = shorterString[i]-'0' + longerString[i]-'0';
+           
+                int x = shorterString[shorterString.length()-(i+1)]-'0';
+                int y = longerString[longerString.length()-(i+1)]-'0';
+                int total = x + y + carry;
+                if (total < 2) {
+                    c = to_string(total);
+                    carry = 0;
+                }
+                else if (total == 2) {
+                    c = '0';
+                    carry = 1;
+                }
+                else if (total == 3) {
+                    c = '1';
+                    carry = 1;
+                }
+            }
+            else {
+                int total = longerString[longerString.length()-(i+1)]-'0' + carry;
+                if (total == 3) {
+                    carry = 1;
+                    c = '1';
+                }
                 if (total == 2) {
-                    carry = true;
+                    carry = 1;
                     c = '0';
                 }
                 else {
-                    carry = false;
-                    c = to_string(shorterString[i]-'0' + longerString[i]-'0');
+                    carry = 0;
+                    c = to_string(total);
                 }
-                
             }
-
+            
             output = c + output;
             counter++;
         
         }
+        if (carry == 1) {
+            output = '1' + output;
+        }
+
         return output;
     }
 };
